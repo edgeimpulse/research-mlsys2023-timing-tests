@@ -83,7 +83,7 @@ void setup() {
   while (!Serial);
 
   // Print test
-  ei_printf("MLSys Arduino timing test");
+  ei_printf("MLSys Arduino timing test\r\n");
 
   // Check to make sure the size of the features is correct
   if (sizeof(features) / sizeof(float) != EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE) {
@@ -107,10 +107,10 @@ void setup() {
   // Print classification results
   ei_printf("Classification results:");
   for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
-        ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
-    }
+    ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
+  }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
-    ei_printf("    anomaly score: %.3f\n", result.anomaly);
+  ei_printf("    anomaly score: %.3f\n", result.anomaly);
 #endif
   ei_printf("\r\n");
 
@@ -126,6 +126,7 @@ void setup() {
   }
 
   // Print timing test results
+  ei_printf("\r\n");
   ei_printf("Timing results\r\n");
   ei_printf("---\r\n");
   ei_printf("Pre-processing: %lu us\r\n", (unsigned long)(timing_dsp_us / num_tests));
