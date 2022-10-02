@@ -43,7 +43,7 @@
     #include "features-vww.h"
 #elif TEST == TEST_IMG
     #include "features-img.h"
-#else:
+#else
     #error Unknown test type
 #endif
 
