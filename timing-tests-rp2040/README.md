@@ -36,6 +36,8 @@ Unzip the deployed `C++ library` from your Edge Impulse project and copy only th
    └─ pico_sdk_import.cmake
    ```
 
+IMPORTANT! For accurate timing, make sure that `*ctx_start_us = ei_read_timer_us();` is above `TfLiteStatus init_status = trained_model_init(ei_aligned_calloc);` in the `inference_tflite_setup(...)` function in *edge-impulse-sdk/classifier/inferencing_engines/tflite_eon.h*.
+
 ### Compile
 
 1. Define Pico SDK path environment variable:

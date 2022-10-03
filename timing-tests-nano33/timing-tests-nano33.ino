@@ -35,16 +35,18 @@
 #define TEST_IMG  2
 
 // Choose test
-#define TEST      TEST_KWS
+#define TEST      TEST_IMG
 
 // Use includes based on chosen test
 #if TEST == TEST_KWS
   #include <mlsys2023-keyword-spotting_inferencing.h>
   #include "features-kws.h"
 #elif TEST == TEST_VWW
-
-#elif TEST == TEST_IMG
-
+  #include <mlsys2023-visual-wake-words_inferencing.h>
+  #include "features-vww.h"
+#elif TEST == TEST_IMG  
+  #include <mlsys2023-image-classification_inferencing.h>
+  #include "features-img.h"
 #else
   #error Incorrect test chosen
 #endif
@@ -105,7 +107,7 @@ void setup() {
   res = run_classifier(&features_signal, &result, ei_debug);
   
   // Print classification results
-  ei_printf("Classification results:");
+  ei_printf("Classification results:\r\n");
   for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
     ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
   }
