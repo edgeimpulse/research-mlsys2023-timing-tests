@@ -38,6 +38,12 @@ Unzip the deployed `C++ library` from your Edge Impulse project and copy only th
 
 IMPORTANT! For accurate timing, make sure that `*ctx_start_us = ei_read_timer_us();` is above `TfLiteStatus init_status = trained_model_init(ei_aligned_calloc);` in the `inference_tflite_setup(...)` function in *edge-impulse-sdk/classifier/inferencing_engines/tflite_eon.h*.
 
+For non-EON compiler SDK, make sure that `*ctx_start_us = ei_read_timer_us();` is above `#ifdef EI_CLASSIFIER_ALLOCATION_STATIC` in *edge-impulse-sdk/classifier/inferencing_engines/tflite_micro.h*.
+
+### Choose test
+
+In *main/main.cpp*, change `#define TEST` to your desired test (`TEST_KWS`, `TEST_VWW`, `TEST_IMG`).
+
 ### Compile
 
 1. Define Pico SDK path environment variable:

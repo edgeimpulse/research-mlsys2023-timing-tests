@@ -4,7 +4,7 @@
 #define TEST_IMG        2
 
 // Select test
-#define TEST            TEST_KWS
+#define TEST            TEST_IMG
 
 /* Include ----------------------------------------------------------------- */
 #include "ei_run_classifier.h"

@@ -37,6 +37,12 @@ Unzip the deployed `C++ library` from your Edge Impulse project and copy only th
 
 IMPORTANT! For accurate timing, make sure that `*ctx_start_us = ei_read_timer_us();` is above `TfLiteStatus init_status = trained_model_init(ei_aligned_calloc);` in the `inference_tflite_setup(...)` function in *edge-impulse-sdk/classifier/inferencing_engines/tflite_eon.h*.
 
+For non-EON compiler SDK, make sure that `*ctx_start_us = ei_read_timer_us();` is above `#ifdef EI_CLASSIFIER_ALLOCATION_STATIC` in *edge-impulse-sdk/classifier/inferencing_engines/tflite_micro.h*.
+
+### Choose test
+
+In *main/main.cpp*, change `#define TEST` to your desired test (`TEST_KWS`, `TEST_VWW`, `TEST_IMG`).
+
 ### Build and upload
 
 Connect ESP32 board to your computer.
@@ -51,6 +57,27 @@ Connect ESP32 board to your computer.
    ```bash
    idf.py -p <serial port> build flash monitor
    ```
+
+### Settings
+
+Some of the tests may fail with default ESP32 values. As such, you will need to enable/disable some settings in menuconfig. You should only need to do this once, but these should be set for all tests.
+
+The watchdog timer should be disabled. If not, you will need to perform the following:
+
+```
+idf.py menuconfig
+```
+
+Search ('/') for "WDT." Disable the following:
+
+```
+[ ]      Watch CPU0 Idle Task (ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0)
+[ ]      Watch CPU1 Idle Task (ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1)
+```
+
+Yes, this is dangerous, but we need them disabled for this test. You should use WDTs in a real application.
+
+For some tests, you will need to enable larger flash and RAM space for the app. In *menuconfig*, search for "PARTITION_TABLE_TYPE and select **Single factory app (large), no OTA**. From top-level menu, select *Component config* -> *ESP32-specific* -> *Support for external, SPI-connected RAM* -> *SPI RAM Config*. Enable external RAM support (as per [this post](https://www.esp32.com/viewtopic.php?t=18950)).
 
 ### Serial connection
 

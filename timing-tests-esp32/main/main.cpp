@@ -93,7 +93,7 @@ extern "C" int app_main()
     res = run_classifier(&features_signal, &result, ei_debug);
     
     // Print classification results
-    ei_printf("Classification results:");
+    ei_printf("Classification results:\r\n");
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) 
     {
         ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
@@ -106,6 +106,9 @@ extern "C" int app_main()
     // Run tests
     for (int i = 0; i < num_tests; i++) 
     {
+        // Yield for at least 10 ms to keep watchdog timer fed
+        ei_sleep(wdt_yield_ms);
+
         ei_printf("Running test %i / %i\r\n", (i + 1), num_tests);
         timestamp_us = ei_read_timer_us();
         res = run_classifier(&features_signal, &result, ei_debug);
@@ -113,9 +116,6 @@ extern "C" int app_main()
         timing_dsp_us += result.timing.dsp_us;
         timing_classification_us += result.timing.classification_us;
         timing_anomaly_us += result.timing.anomaly_us;
-
-        // Yield for at least 10 ms to keep watchdog timer fed
-        ei_sleep(wdt_yield_ms);
     }
 
     // Print timing test results
