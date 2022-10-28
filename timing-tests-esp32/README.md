@@ -77,7 +77,7 @@ Search ('/') for "WDT." Disable the following:
 
 Yes, this is dangerous, but we need them disabled for this test. You should use WDTs in a real application.
 
-For some tests, you will need to enable larger flash and RAM space for the app. In *menuconfig*, search for "PARTITION_TABLE_TYPE and select **Single factory app (large), no OTA**. From top-level menu, select *Component config* -> *ESP32-specific* -> *Support for external, SPI-connected RAM* -> *SPI RAM Config*. Enable external RAM support (as per [this post](https://www.esp32.com/viewtopic.php?t=18950)).
+For some tests, you will need to enable larger flash and RAM space for the app. In *menuconfig*, search for "PARTITION_TABLE_TYPE and select **Single factory app (large), no OTA**. From top-level menu, select *Component config* -> *ESP32-specific* -> *Support for external, SPI-connected RAM* -> *SPI RAM Config*. Enable external RAM support (as per [this post](https://www.esp32.com/viewtopic.php?t=18950#p70249)).
 
 ### Serial connection
 

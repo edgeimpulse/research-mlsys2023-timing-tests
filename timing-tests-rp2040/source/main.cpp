@@ -52,6 +52,8 @@ int main()
 
     // Print test
     ei_printf("MLSys ESP32 timing test\r\n");
+    ei_printf("Test: %i\r\n", TEST);
+    ei_printf("Quanization: %i\r\n", EI_CLASSIFIER_TFLITE_INPUT_QUANTIZED);
 
     // Check to make sure the size of the features is correct
     if (sizeof(features) / sizeof(float) != EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE)

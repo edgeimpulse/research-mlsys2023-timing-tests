@@ -8,5 +8,5 @@ idf_build_set_property(COMPILE_OPTIONS "-Wno-unused-variable" APPEND)
 idf_build_set_property(COMPILE_OPTIONS "-Wno-maybe-uninitialized" APPEND)
 idf_build_set_property(COMPILE_OPTIONS "-Wno-error=format=" APPEND)
 idf_build_set_property(COMPILE_OPTIONS "-Wno-unused-but-set-parameter" APPEND)
-
 idf_build_set_property(COMPILE_OPTIONS "-Wno-error=nonnull-compare" APPEND)
+idf_build_set_property(COMPILE_OPTIONS "-DEI_CLASSIFIER_TFLITE_ENABLE_ESP_NN=1" APPEND)
