@@ -12,13 +12,15 @@ While the script is mainly tested with ESP-EYE, other ESP32-based development bo
 
 ### Software
 
-* [ESP IDF 4.4](https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/get-started/index.html).
+* [ESP IDF 4.4.4](https://docs.espressif.com/projects/esp-idf/en/v4.4.4/esp32/get-started/index.html).
+
+Note that you should use v4.4.4. Version 5.x does not work with Edge Impulse C++ SDK at this time.
 
 ## Building the application
 
 ### Get the Edge Impulse SDK
 
-Unzip the deployed `C++ library` from your Edge Impulse project and copy only the folders to the root directory of this repository:
+Unzip the deployed `C++ library` from your Edge Impulse project and copy only the folders to the root directory of this directory:
 
    ```
    example-standalone-inferencing-espressif-esp32/
@@ -45,9 +47,9 @@ In *main/main.cpp*, change `#define TEST` to your desired test (`TEST_KWS`, `TES
 
 ### Build and upload
 
-Connect ESP32 board to your computer.
+Connect ESP32 board to your computer. Do the following in a separate terminal window (NOT inside the VS Code terminal! That has issues with the ESP-IDF Python virtual environment):
 
-1. Set environment: run `install` and `export` scripts in `<espressif-install>/frameworks/esp-idf-vx.x.x/`
+1. Set environment: run `get_idf`
 2. Navigate to this directory
 3. Set target:
    ```bash
@@ -59,6 +61,8 @@ Connect ESP32 board to your computer.
    ```
 
 ### Settings
+
+*sdkconfig* is generated on build. To create a "permanent" set of config settings, change the name to *sdkconfig.defaults*. This project comes with *sdkconfig.defualts*. You should not need to change anything in these settings to run the test, but in case you do, here are some notes:
 
 Some of the tests may fail with default ESP32 values. As such, you will need to enable/disable some settings in menuconfig. You should only need to do this once, but these should be set for all tests.
 
@@ -81,4 +85,13 @@ For some tests, you will need to enable larger flash and RAM space for the app. 
 
 ### Serial connection
 
-The `monitor` argument should automatically open a serial connection to the ESP32. If you need to reconnect with another program, use screen, minicom or Serial monitor in Arduino IDE to set up a serial connection over USB. The following UART settings are used: 115200 baud, 8N1.
+The `monitor` argument should automatically open a serial connection to the ESP32. If you need to reconnect with another program, use screen, minicom or Serial monitor in Arduino IDE to set up a serial connection over USB. The following UART settings are used: 115200 baud, 8N1. Press **ctrl+]** to exit.
+
+
+### Troubleshooting
+
+If CMake gets caught in an endless loop and complains about times not being synchronized, you might need to touch all the files in this directory. Run:
+
+```
+find . -type f -exec touch {} +  
+```

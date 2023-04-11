@@ -84,7 +84,7 @@ extern "C" int app_main()
     }
 
     // Zero out the results
-    ei_impulse_result_t result = { 0 };
+    ei_impulse_result_t result = { nullptr };
 
     // Set up our signal struct to feed to inference
     signal_t features_signal;
@@ -98,11 +98,23 @@ extern "C" int app_main()
     ei_printf("Classification results:\r\n");
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) 
     {
-        ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
+        ei_printf("    %s: %.5f\r\n", result.classification[ix].label, result.classification[ix].value);
     }
     #if EI_CLASSIFIER_HAS_ANOMALY == 1
         ei_printf("    anomaly score: %.3f\n", result.anomaly);
     #endif
+
+    // Check result
+    if (res != 0) {
+        ei_printf("ERROR: Inference failed. Error code: %i\r\n", res);
+        return 1;
+    }
+
+    // Print timing results
+    ei_printf("Timing results\r\n");
+    ei_printf("    Pre-processing: %d ms\r\n", result.timing.dsp);
+    ei_printf("    Inference:      %d ms\r\n", result.timing.classification);
+    ei_printf("    Anomaly:        %d ms\r\n", result.timing.anomaly);
     ei_printf("\r\n");
 
     // Run tests

@@ -1,3 +1,4 @@
+# Build and dev
 build/
 .vscode/
 .DS_Store
@@ -34,3 +35,8 @@ build/
 *.exe
 *.out
 *.app
+
+# Edge Impulse model files
+edge-impulse-sdk/
+model-parameters/
+tflite-model/
